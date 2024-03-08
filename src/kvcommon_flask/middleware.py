@@ -1,3 +1,5 @@
+import dataclasses
+from urllib.parse import ParseResult
 import logging
 import typing as t
 
@@ -18,6 +20,12 @@ def is_meta_url(url: str, prefix: str | None = None) -> bool:
     return False
 
 
+@dataclasses.dataclass(kw_only=True)
+class PreDispatchResult:
+    url_parts: ParseResult
+    is_meta: bool
+
+
 class KVCFlaskMiddleware(BaseHTTPMiddleware):
     _meta_prefix: str
 
@@ -26,15 +34,21 @@ class KVCFlaskMiddleware(BaseHTTPMiddleware):
             self._meta_prefix = meta_prefix
         super().__init__()
 
+    def _pre_dispatch(self, request) -> PreDispatchResult:
+        url_parts = urlparse_ignore_scheme(request.url, request.scheme)
+        url_path: str = url_parts.path
+        set_flask_context_local("url_parts", url_parts)
+
+        is_meta: bool = is_meta_url(url_path, prefix=self._meta_prefix)
+        set_flask_context_local("is_meta_request", is_meta)
+
+        # Return this result for use in subclasses calling super()
+        return PreDispatchResult(url_parts=url_parts, is_meta=is_meta)
+
+    def _dispatch(self, request, call_next, metric=metrics.SERVER_REQUEST_SECONDS, **labels):
+        with metric.labels(**labels).time():
+            return call_next(request)
+
     def dispatch(self, request, call_next):
-        with metrics.SERVER_REQUEST_SECONDS.labels().time():
-            url_parts = urlparse_ignore_scheme(request.url, request.scheme)
-            url_path: str = url_parts.path
-            set_flask_context_local("url_parts", url_parts)
-
-            is_meta: bool = is_meta_url(url_path, prefix=self._meta_prefix)
-            set_flask_context_local("is_meta_request", is_meta)
-
-            response = call_next(request)
-
-        return response
+        self._pre_dispatch(request=request)
+        return self._dispatch(request=request, call_next=call_next)

@@ -59,7 +59,6 @@ class Scheduler:
             "interval", id=job_id, seconds=interval_seconds, misfire_grace_time=misfire_grace_time
         )
         def job():
-            # TODO: This debug logging is probably not worth the stacktrace-mangling downside of
             # wrapping the job in a closure
             LOG.debug(f"Scheduler: Executing Job<{job_id}>")
             job_func()
