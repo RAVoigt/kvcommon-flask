@@ -27,7 +27,7 @@ class KVCFlaskMiddleware(BaseHTTPMiddleware):
         super().__init__()
 
     def dispatch(self, request, call_next):
-        with metrics.SECONDS_SERVER_REQUEST.labels().time():
+        with metrics.SERVER_REQUEST_SECONDS.labels().time():
             url_parts = urlparse_ignore_scheme(request.url, request.scheme)
             url_path: str = url_parts.path
             set_flask_context_local("url_parts", url_parts)

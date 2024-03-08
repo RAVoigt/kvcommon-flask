@@ -2,10 +2,11 @@ from prometheus_client import start_http_server
 
 from kvcommon_flask.vars import KVC_FLASK_METRICS_ENABLED as ENABLED
 from kvcommon_flask.vars import KVC_FLASK_METRICS_PORT
-from .metrics import JOB_EVENT
+from .metrics import SCHEDULER_JOB_EVENT
 
-from .metrics import SECONDS_SERVER_REQUEST
-from .metrics import incr_counter
+from .metrics import SERVER_REQUEST_SECONDS
+from .metrics import incr
+from .metrics import decr
 
 
 def init_metrics():
@@ -14,8 +15,9 @@ def init_metrics():
 
 __all__ = [
     "ENABLED",
-    "incr_counter",
+    "incr",
+    "decr",
     "init_metrics",
-    "JOB_EVENT",
-    "SECONDS_SERVER_REQUEST",
+    "SCHEDULER_JOB_EVENT",
+    "SERVER_REQUEST_SECONDS",
 ]

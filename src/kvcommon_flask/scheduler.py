@@ -18,7 +18,7 @@ class SchedulerEventTracker(object):
     @staticmethod
     def _job_event_track(job_id: str, event: str):
         LOG.debug(f"Scheduler Event Listener: {event}: Job <'{job_id}'>")
-        metrics.incr_counter(metrics.JOB_EVENT.labels(job_id=job_id, eventnt=event.lower()))
+        metrics.incr(metrics.SCHEDULER_JOB_EVENT.labels(job_id=job_id, eventnt=event.lower()))
 
     @staticmethod
     def event_listener(event):
