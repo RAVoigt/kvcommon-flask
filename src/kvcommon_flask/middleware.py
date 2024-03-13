@@ -1,6 +1,5 @@
 import dataclasses
 from urllib.parse import ParseResult
-import logging
 import typing as t
 
 
