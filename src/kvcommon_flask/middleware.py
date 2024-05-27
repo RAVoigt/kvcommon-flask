@@ -2,8 +2,10 @@ import dataclasses
 from urllib.parse import ParseResult
 import typing as t
 
+import flask
 
 from flask_http_middleware import BaseHTTPMiddleware
+from flask_http_middleware import MiddlewareManager
 
 from kvcommon.urls import urlparse_ignore_scheme
 from kvcommon_flask import metrics
@@ -51,3 +53,8 @@ class KVCFlaskMiddleware(BaseHTTPMiddleware):
     def dispatch(self, request, call_next):
         self._pre_dispatch(request=request)
         return self._dispatch(request=request, call_next=call_next)
+
+
+def setup_middleware(flask_app: flask.Flask, middleware_cls: t.Type[BaseHTTPMiddleware]):
+    flask_app.wsgi_app = MiddlewareManager(flask_app)
+    flask_app.wsgi_app.add_middleware(middleware_cls)

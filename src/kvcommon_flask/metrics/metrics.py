@@ -8,23 +8,15 @@ from prometheus_client import Summary
 
 
 def incr(metric: Counter | Gauge):
-    from kvcommon_flask.vars import KVC_FLASK_METRICS_ENABLED
+    metric.inc()
 
-    if KVC_FLASK_METRICS_ENABLED:
-        metric.inc()
 
 def decr(gauge: Gauge):
-    from kvcommon_flask.vars import KVC_FLASK_METRICS_ENABLED
-
-    if KVC_FLASK_METRICS_ENABLED:
-        gauge.dec()
+    gauge.dec()
 
 
 def set_app_info(app_version: str):
-    from kvcommon_flask.vars import KVC_FLASK_METRICS_ENABLED
-
-    if KVC_FLASK_METRICS_ENABLED:
-        APP_INFO.info(dict(version=app_version))
+    APP_INFO.info(dict(version=app_version))
 
 
 APP_INFO = Info("app", "Application info")
@@ -44,4 +36,12 @@ SERVER_REQUEST_SECONDS = Histogram(
     "server_request_seconds",
     "Time taken for server to handle request",
     labelnames=["path"],
+)
+
+HTTP_RESPONSE_COUNT = Counter(
+    "http_request_status_proxy_total",
+    "Count of HTTP response statuses returned by server",
+    labelnames=[
+        "code",
+    ],
 )
