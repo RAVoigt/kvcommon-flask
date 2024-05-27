@@ -4,6 +4,13 @@ from prometheus_client import Histogram
 from prometheus_client import Info
 from prometheus_client import Summary
 
+from kvcommon_flask.exceptions import KVCFlaskException
+
+
+class MetricsException(KVCFlaskException):
+    pass
+
+
 # https://prometheus.io/docs/practices/naming/
 
 
