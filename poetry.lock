@@ -419,13 +419,13 @@ i18n = ["Babel (>=2.7)"]
 
 [[package]]
 name = "kvcommon"
-version = "0.1.1"
+version = "0.1.2"
 description = "Library of miscellaneous common python utils that aren't worthy of their own dedicated libs."
 optional = false
 python-versions = "<4.0,>=3.11"
 files = [
-    {file = "kvcommon-0.1.1-py3-none-any.whl", hash = "sha256:5fb3c626ba16b6ad68725d48ac9b9581e295d6075613feacf9fe91b8948b600e"},
-    {file = "kvcommon-0.1.1.tar.gz", hash = "sha256:7eb653ac509eb67048660e4852058b850b5e7e5f61b339e58dd6167cfcec5be1"},
+    {file = "kvcommon-0.1.2-py3-none-any.whl", hash = "sha256:62e946523700d69c97a38d4eb6dafef5b6c8f97c96c0694050b37c7eedc771bc"},
+    {file = "kvcommon-0.1.2.tar.gz", hash = "sha256:7657e8336e83fbd2a7844c01dd0f9604f2c597d4b698965a4f1b347da885ef5a"},
 ]
 
 [package.dependencies]
@@ -958,4 +958,4 @@ traces = []
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "9c8d0176a9d154a4af194328b41e35ee989fb39bbc4c1ac2f6cea4702c1109b9"
+content-hash = "b09960a7c6da6bfd98c8e7e6120766fdae681ff0e933a5bd7a47db0940f21a77"
