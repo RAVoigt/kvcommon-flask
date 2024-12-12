@@ -1,9 +1,11 @@
 [tool.poetry]
 name = "kvcommon-flask"
-version = "0.0.9"
+version = "0.1.0"
 description = "Library of various Flask utils that aren't worthy of their own dedicated libs."
 authors = ["Rob Voigt <code@ravoigt.com>"]
 readme = "README.md"
+repository = "https://github.com/RAVoigt/kvcommon-flask"
+homepage = "https://github.com/RAVoigt/kvcommon-flask"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -27,7 +29,6 @@ python = "^3.11"
 toml = "^0.10.2"
 kvcommon = "^0.1.4"
 
-flask-apscheduler = "^1.13.1"
 flask-http-middleware = "^0.4.2"
 
 
@@ -42,10 +43,12 @@ pytest-cov = "*"
 pyfakefs = "*"
 
 # Extras
+flask-apscheduler = "^1.13.1"
 prometheus-client = "^0.20.0"
 prometheus-flask-exporter = "^0.23.0"
 
 
 [tool.poetry.extras]
 metrics = ["prometheus-client", "prometheus-flask-exporter"]
+scheduler = ["flask-apscheduler"]
 traces = ["opentelemetry-exporter-otlp", "opentelemetry-instrumentation-flask", "opentelemetry-instrumentation-logging"]

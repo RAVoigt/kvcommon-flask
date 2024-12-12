@@ -949,9 +949,10 @@ watchdog = ["watchdog (>=2.3)"]
 
 [extras]
 metrics = []
+scheduler = []
 traces = []
 
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "eba0c26206464790719112198c69d9c9a2b6b21b26bac195c6824ba2e369724f"
+content-hash = "5e25fea0b439571edd0ba8f51819cf28951b905707695d2030bb419b83d4d26e"
