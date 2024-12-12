@@ -16,7 +16,13 @@ LOG = logger.get_logger("kvc-flask")
 
 
 def is_meta_url(url: str, prefix: str | None = None) -> bool:
-    if (prefix and url.startswith(prefix)) or url.startswith("/healthz/"):
+    if not prefix:
+        return False
+    if not prefix.startswith("/"):
+        prefix = f"/{prefix}"
+    if not prefix.endswith("/"):
+        prefix = f"{prefix}/"
+    if url.startswith(prefix) or url.startswith("/healthz/"):
         return True
     return False
 
